@@ -26,11 +26,7 @@ Replace token with what you want to use for the subject you are training. If you
 
 Replace image_path with the path to the image folder you want to caption.
 
-Then you can run the command like this:
 
-```
-python3 caption.py <token> <image_path>
-```
 
 ### Example
 ```
@@ -64,7 +60,6 @@ C:\Users\user\training_data\image1.txt
 
 This is perfect for using with [kohya_ss](https://github.com/bmaltais/kohya_ss)
 
-If you would like to use a different caption you can pass the `--ext=<extension>` flag to the command. This will change the extension of the output files
 
 ## Notes
 
@@ -74,6 +69,7 @@ This script is not perfect and will not always generate the best captions. **Loo
 ## Roadmap
 
 - [ ] Add more options for the captions
+- [ ] Work on the prompt to make it give better results
 - [ ] Add style support
 
 ## License

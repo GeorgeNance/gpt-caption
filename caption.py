@@ -28,11 +28,7 @@ keyword = args.keyword
 image_folder = args.image_folder
 
 
-
-print(f"Keyword: {keyword}")
-print(f"Image folder: {image_folder}")
-print(f"Caption extension: {args.ext}")
-quit()
+# 
 
 
 # Function to encode the image
@@ -58,7 +54,7 @@ def generate_caption(image_path):
 		"content": [
 			{
 			"type": "text",
-			"text": '''Classify images with precision using session keywords for object/subject captions for Stable Diffusion. Begin captions with the session keyword, focusing on actions, clothing, and scenery. Avoid putting a semicolon after the session keyword. Avoid artistic interpretation, text, and meta commentary. The session keyword is "{keyword}" '''.format(keyword=keyword)
+			"text": '''Classify image with precision using session keywords for object/subject captions for Stable Diffusion. Begin captions with the session keyword, focusing on actions, clothing, photo style, and scenery. Avoid putting a semicolon after the session keyword. Add descriptions of the photo itself such as "selfie" or "full body shot". If the photo does have many details or is very blurry mention that it is low quality. Refer to the subject by the keyword. Instead of "KEYWORD woman" just say "KEYWORD". Avoid artistic interpretation, text, and meta commentary. The session keyword is "{keyword}" '''.format(keyword=keyword)
 			},
 			{
 			"type": "image_url",
@@ -84,6 +80,19 @@ def generate_caption(image_path):
 if not os.path.exists(image_folder):
 	print(f"Error: {image_folder} does not exist")
 	quit()
+
+# Check if caption files already exist, if so, ask the user if they want to overwrite them
+caption_files = [file for file in os.listdir(image_folder) if file.endswith(caption_extension)]
+if len(caption_files) > 0:
+	print(f"Warning: {len(caption_files)} caption files already exist in {image_folder}")
+	overwrite = input("Do you want to overwrite them? (y/n): ")
+	if overwrite.lower() != "y":
+		print("Exiting")
+		quit()
+	# Delete the caption files
+	for file in caption_files:
+		os.remove(os.path.join(image_folder, file))
+
 
 images = []
 valid_extensions = [".jpg", ".jpeg", ".png"]

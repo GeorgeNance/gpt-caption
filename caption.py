@@ -85,11 +85,11 @@ if not os.path.exists(image_folder):
 	print(f"Error: {image_folder} does not exist")
 	quit()
 
-# Check if caption files already exist, if so, ask the user if they want to overwrite them
+# Check if caption files already exist, if so, ask the user if they want to overwrite them or continue
 caption_files = [file for file in os.listdir(image_folder) if file.endswith(caption_extension)]
 if len(caption_files) > 0:
 	print(f"Warning: {len(caption_files)} caption files already exist in {image_folder}")
-	overwrite = input("Do you want to overwrite them? (y/n): ")
+	overwrite = input("Do you want to overwrite them? If no, they will be skipped (y/n): ")
 	
 	if overwrite.lower() != "y":
 		overwrite = False

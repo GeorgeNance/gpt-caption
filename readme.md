@@ -18,7 +18,7 @@ You can expect to pay around $0.01 per image captioned. This is not a guarantee 
 
 After that is set up, clone the repo and run the caption command.
 
-1. `git clone <REPO>`
+1. `git clone https://github.com/GeorgeNance/gpt-caption-sdxl`
 2. `cd GPT-CAPTION-SDXL`
 3. `python3 caption.py <token> <image_path>`
 

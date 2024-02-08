@@ -6,13 +6,17 @@ import argparse
 # OpenAI API Key
 api_key = os.environ.get("OPENAI_API_KEY")
 
-if api_key is None:
-	print("Error: OPENAI_API_KEY environment variable not set")
-	sys.exit(1)
+# Overwrite files or only generate captions for images that don't have captions
+overwrite = False
 
 # The extension for the caption file
 caption_extension = "txt"
 
+
+
+if api_key is None:
+	print("Error: OPENAI_API_KEY environment variable not set")
+	sys.exit(1)
 
 # Parse the arguments
 parser = argparse.ArgumentParser(description="Generate captions for a folder of images")
@@ -86,12 +90,14 @@ caption_files = [file for file in os.listdir(image_folder) if file.endswith(capt
 if len(caption_files) > 0:
 	print(f"Warning: {len(caption_files)} caption files already exist in {image_folder}")
 	overwrite = input("Do you want to overwrite them? (y/n): ")
+	
 	if overwrite.lower() != "y":
-		print("Exiting")
-		quit()
-	# Delete the caption files
-	for file in caption_files:
-		os.remove(os.path.join(image_folder, file))
+		overwrite = False
+	else:
+		overwrite = True
+		# Delete the caption files
+		for file in caption_files:
+			os.remove(os.path.join(image_folder, file))
 
 
 images = []
@@ -109,6 +115,12 @@ if len(images) == 0:
 print(f"Found {len(images)} images")
 
 for image in images:
+	# Check if the caption file already exists
+	if not overwrite:
+		caption_file = os.path.splitext(image)[0] + "." + caption_extension
+		if os.path.exists(caption_file):
+			print(f"Caption file already exists for {image}")
+			continue
 	caption = generate_caption(image)
 	# Print the caption
 	print (f"Caption for {image}: {caption}")

@@ -58,7 +58,7 @@ def generate_caption(image_path):
 		"content": [
 			{
 			"type": "text",
-			"text": '''Classify image with precision using session keywords for object/subject captions for Stable Diffusion. Begin captions with the session keyword, focusing on actions, clothing, photo style, and scenery. Avoid putting a semicolon after the session keyword. Add descriptions of the photo itself such as "selfie" or "full body shot". If the photo does have many details or is very blurry mention that it is low quality. Refer to the subject by the keyword. Instead of "KEYWORD woman" just say "KEYWORD". Avoid artistic interpretation, text, and meta commentary. The session keyword is "{keyword}" '''.format(keyword=keyword)
+			"text": '''Classify image with precision using session keywords for object/subject captions for Stable Diffusion. Begin captions with the session keyword, focusing on actions, clothing, photo style, and scenery. Avoid putting a semicolon after the session keyword. Add descriptions of the photo itself such as "selfie" or "full body shot". If the photo does not have many details or is very blurry mention that it is low quality. Refer to the subject by the keyword. Avoid artistic interpretation, text, and meta commentary. The session keyword is "{keyword}" '''.format(keyword=keyword)
 			},
 			{
 			"type": "image_url",

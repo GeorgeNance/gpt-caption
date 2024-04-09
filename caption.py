@@ -105,7 +105,7 @@ valid_extensions = [".jpg", ".jpeg", ".png"]
 
 for file in os.listdir(image_folder):
 	# Check if the file is an image
-	if file.endswith(tuple(valid_extensions)):
+	if file.lower().endswith(tuple(valid_extensions)):
 		images.append(os.path.join(image_folder, file))
 
 if len(images) == 0:

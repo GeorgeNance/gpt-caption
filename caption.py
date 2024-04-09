@@ -26,10 +26,15 @@ parser.add_argument("image_folder", help="The folder containing the images")
 # Optional arguments
 
 parser.add_argument("--ext", help="The extension for the caption file", default=".txt")
+parser.add_argument("--overwrite", help="Overwrite existing caption files", action="store_true",default=False)
+
 args = parser.parse_args()
 
 keyword = args.keyword
 image_folder = args.image_folder
+overwrite = args.overwrite
+
+
 
 
 # 
@@ -87,15 +92,7 @@ if not os.path.exists(image_folder):
 
 # Check if caption files already exist, if so, ask the user if they want to overwrite them or continue
 caption_files = [file for file in os.listdir(image_folder) if file.endswith(caption_extension)]
-if len(caption_files) > 0:
-	print(f"Warning: {len(caption_files)} caption files already exist in {image_folder}")
-	overwrite = input("Do you want to overwrite them? If no, they will be skipped (y/n): ")
-	
-	if overwrite.lower() != "y":
-		overwrite = False
-	else:
-		overwrite = True
-		# Delete the caption files
+if overwrite and len(caption_files) > 0:
 		for file in caption_files:
 			os.remove(os.path.join(image_folder, file))
 
@@ -114,12 +111,14 @@ if len(images) == 0:
 
 print(f"Found {len(images)} images")
 
+images_captioned = 0
+
 for image in images:
 	# Check if the caption file already exists
 	if not overwrite:
 		caption_file = os.path.splitext(image)[0] + "." + caption_extension
 		if os.path.exists(caption_file):
-			print(f"Caption file already exists for {image}")
+			# Skip this image
 			continue
 	caption = generate_caption(image)
 	# Print the caption
@@ -130,5 +129,7 @@ for image in images:
 	# Write the caption to a file
 	with open(filename +"."+ caption_extension, 'w') as f:
 		f.write(caption)
+	images_captioned += 1
 	
 
+print(f"Generated captions for {images_captioned} images")

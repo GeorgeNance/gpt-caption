@@ -1,3 +1,5 @@
+![](./banner.webp)
+
 # Auto Captions for SDXL
 
 
@@ -44,6 +46,7 @@ python3 caption.py "sks" "C:\Users\user\training_data" --ext=md
 | Parameter | Description | Default |
 | --- | --- | --- |
 | `--ext` | The extension of the output files | `txt` |
+| `--overwrite` | Overwrite existing caption files | `False` |
 
 
 
